@@ -1,0 +1,43 @@
+.kenko-dashboard {
+	.app-nav-bar {
+		position: fixed;
+		height: 64px;
+		z-index: 2;
+	}
+	.kenko-main-content {
+		position: absolute;
+		top: 64px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		.side-nav {
+            width: 300px;
+            .highlighted-menu-item {
+                background-color: #57717c;
+            }
+        }
+        .side-nav-content {
+            padding: 20px;
+            .word-presentation {
+                font-size: 50px;
+                font-weight: bold;
+                padding: 30px 20px;
+                min-height: 150px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                letter-spacing: 4px;
+            }
+            .action-button-group {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                button {
+                    margin-left: 10px;
+                    margin-right: 10px;
+                }
+            }
+        }
+	}
+}
