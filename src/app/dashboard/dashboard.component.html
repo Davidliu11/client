@@ -9,31 +9,50 @@
             </mat-toolbar>
             <mat-list>
                 <ng-container *ngFor="let member of onlineMembers">
-                    <mat-list-item [ngClass]="{'highlighted-menu-item': member === currentTester}" (click)="selectMember(member)">
+                    <mat-list-item [ngClass]="getClass(member)"
+                        (click)="selectMember(member)">
                         <mat-icon mat-list-icon>face</mat-icon>
                         <h4 mat-line>{{member.name}}</h4>
-                        <p mat-line> Right: <span style="color: green;">{{member.rightAnswer}}</span>, Wrong: <span style="color: red;">{{member.wrongAnswer}}</span></p>
+                        <p mat-line> Right: <span style="color: green;">{{member.rightAnswer}}</span>, Wrong: <span
+                                style="color: red;">{{member.wrongAnswer}}</span></p>
                         <mat-divider></mat-divider>
                     </mat-list-item>
                 </ng-container>
             </mat-list>
         </mat-sidenav>
         <mat-sidenav-content class="side-nav-content">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>
-                        Current： {{currentTester?.name}}
+            <div class="side-nav-control-anchor" (click)="toggleNav()">
+                <mat-icon *ngIf="sideMenuOpened">keyboard_arrow_left</mat-icon>
+                <mat-icon *ngIf="!sideMenuOpened">keyboard_arrow_right</mat-icon>
+            </div>
+            <mat-card class="card">
+                <mat-card-header style="display: flex; justify-content: center;">
+                    <mat-card-title *ngIf="currentTester">
+                        CURRENT： {{currentTester?.name}}
+                    </mat-card-title>
+                    <mat-card-title *ngIf="!currentTester">
+                        SELECT TESTER
                     </mat-card-title>
                 </mat-card-header>
-                <mat-card-content>
-                    <div class="word-presentation">
-                        {{currentWord}}
-                    </div>
-                </mat-card-content>
-                <mat-card-actions class="action-button-group">
-                    <button mat-fab color=primary> PASS </button>
-                    <button mat-fab color=warn> FAIL </button>
-                </mat-card-actions>
+                <ng-container *ngIf="currentTester && testStarted">
+                    <mat-card-content>
+                        <div class="word-presentation">
+                            {{allWords[currentWordIndex]}}
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions class="action-button-group">
+                        <ng-container>
+                            <button mat-fab color=primary (click)="rightAnswer()"> PASS </button>
+                            <button mat-fab color=warn (click)="wrongAnswer()"> FAIL </button>
+                        </ng-container>
+                    </mat-card-actions>
+                </ng-container>
+                <ng-container *ngIf="currentTester && !testStarted">
+                    <mat-card-actions class="action-button-group">
+                        <button mat-raised-button color=primary (click)="startTest()"> Start Test </button>
+                    </mat-card-actions>
+
+                </ng-container>
             </mat-card>
         </mat-sidenav-content>
     </mat-sidenav-container>
