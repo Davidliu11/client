@@ -22,67 +22,67 @@ export class DashboardComponent implements OnInit {
     currentTester: Tester;
     onlineMembers: Tester[] = [
         {
-            name: 'Amy',
+            name: 'Amy Zhang',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
         },
         {
-            name: 'Charles',
+            name: 'Charles Yu',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
         },
         {
-            name: 'David',
+            name: 'David Liu',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
         },
         {
-            name: 'Vivian',
+            name: 'Vivian Shen',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
         },
         {
-            name: 'Jack',
+            name: 'Jack Chen',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
         },
         {
-            name: 'Novia',
+            name: 'Novia Na',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
         },
         {
-            name: 'HanLi',
+            name: 'Han Li',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
         },
         {
-            name: 'Sander',
+            name: 'Sander Li',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
         },
         {
-            name: 'TaoLue',
+            name: 'TaoLue Liu',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
         },
         {
-            name: 'Joey',
+            name: 'Joey Li',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
         },
         {
-            name: 'Ginny',
+            name: 'Ginny Fan',
             rightAnswer: 0,
             wrongAnswer: 0,
             passed: false
@@ -127,7 +127,7 @@ export class DashboardComponent implements OnInit {
         if (this.currentTester.rightAnswer === 3) {
             this.currentTester.passed = true;
             this.currentTester = undefined;
-            Swal.fire('Confrats!', 'You passed this test!', 'success');
+            Swal.fire('Congrats!', 'You passed this test!', 'success');
         }
         this.nextWords();
     }
