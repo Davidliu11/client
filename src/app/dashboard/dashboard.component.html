@@ -5,15 +5,20 @@
     <mat-sidenav-container class="kenko-main-content">
         <mat-sidenav class="side-nav" mode="side" [(opened)]="sideMenuOpened">
             <mat-toolbar>
-                <h6>Online Members</h6>
+                <h6>All Members</h6>
             </mat-toolbar>
             <mat-list>
-                <ng-container *ngFor="let member of onlineMembers">
+                <ng-container *ngFor="let member of onlineMembers | orderBy: 'passedCount' : true">
                     <mat-list-item [ngClass]="getClass(member)"
                         (click)="selectMember(member)">
+                        <ul class="test-result-indicator">
+                            <ng-template ngFor let-item [ngForOf]="[1,1,1,1,1,1,1,1,1,1]" let-i="index">
+                                <li [ngClass]="{'passed-indicator': i < member.passedCount, 'failed-incicator': i >= member.passedCount && i < member.passedCount + member.failedCount}"></li>
+                            </ng-template>
+                        </ul>
                         <ngx-avatar name="{{member.name}}"></ngx-avatar>
-                        <h4 mat-line>{{member.name}}</h4>
-                        <p mat-line> Right: <span style="color: green;">{{member.rightAnswer}}</span>, Wrong: <span
+                        <h4 mat-line><b>{{member.name}}</b></h4>
+                        <p mat-line> LAST TEST: <span style="color: green;">{{member.rightAnswer}}</span>, <span
                                 style="color: red;">{{member.wrongAnswer}}</span></p>
                         <mat-divider></mat-divider>
                     </mat-list-item>

@@ -14,6 +14,7 @@ import {
     MatIconModule
 } from '@angular/material';
 import { AvatarModule } from 'ngx-avatar';
+import { OrderModule } from 'ngx-order-pipe';
 
 // Components
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { from } from 'rxjs';
       BrowserAnimationsModule,
       HttpClientModule,
       AvatarModule,
+      OrderModule,
       // Material
       MatToolbarModule,
       MatSidenavModule,

@@ -6,6 +6,8 @@ interface Tester {
     rightAnswer: number;
     wrongAnswer: number;
     passed: boolean;
+    passedCount?: number;
+    failedCount?: number;
 }
 declare var require: any;
 @Component({
@@ -25,67 +27,78 @@ export class DashboardComponent implements OnInit {
             name: 'Amy Zhang',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         },
         {
             name: 'Charles Yu',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         },
         {
             name: 'David Liu',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         },
         {
             name: 'Vivian Shen',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         },
         {
             name: 'Jack Chen',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         },
         {
             name: 'Novia Na',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         },
         {
             name: 'Han Li',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         },
         {
             name: 'Sander Li',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         },
         {
             name: 'TaoLue Liu',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         },
         {
             name: 'Joey Li',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         },
         {
             name: 'Ginny Fan',
             rightAnswer: 0,
             wrongAnswer: 0,
-            passed: false
+            passed: false,
+            passedCount: 0,
         }
     ];
 
@@ -126,8 +139,13 @@ export class DashboardComponent implements OnInit {
         this.currentTester.rightAnswer += 1;
         if (this.currentTester.rightAnswer === 3) {
             this.currentTester.passed = true;
+            if (!this.currentTester.passedCount) {
+                this.currentTester.passedCount = 0;
+            }
+            this.currentTester.passedCount += 1;
+            console.log(this.currentTester);
             this.currentTester = undefined;
-            Swal.fire('Congrats!', 'You passed this test!', 'success');
+            Swal.fire('Congratulation!', 'You passed this test!', 'success');
         }
         this.nextWords();
     }
@@ -135,8 +153,12 @@ export class DashboardComponent implements OnInit {
     wrongAnswer() {
         this.currentTester.wrongAnswer += 1;
         if (this.testerLastStatus === false) {
+            if (!this.currentTester.failedCount) {
+                this.currentTester.failedCount = 0;
+            }
+            this.currentTester.failedCount += 1;
             this.currentTester = undefined;
-            Swal.fire('Failed', 'You failed this test.', 'error');
+            Swal.fire('Sorry!', 'You failed this test.', 'error');
         } else {
             this.testerLastStatus = false;
         }
@@ -154,9 +176,7 @@ export class DashboardComponent implements OnInit {
 
     getClass(member: Tester) {
         return {
-            'highlighted-menu-item': member === this.currentTester,
-            'passed-effect': member.passed,
-            'failed-effect ': !member.passed && member.wrongAnswer > 0
+            'highlighted-menu-item': member === this.currentTester
         }
     }
 }
