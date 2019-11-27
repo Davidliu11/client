@@ -19,13 +19,14 @@ import { OrderModule } from 'ngx-order-pipe';
 // Components
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { from } from 'rxjs';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 
 @NgModule({
   declarations: [
       AppComponent,
-      DashboardComponent
+      DashboardComponent,
+      WelcomePageComponent
   ],
   imports: [
       BrowserModule,

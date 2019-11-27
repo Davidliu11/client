@@ -18,7 +18,7 @@ declare var require: any;
 export class DashboardComponent implements OnInit {
     sideMenuOpened = true;
     currentTest: string;
-    allWords = require('./words.json');
+    allWords = require('../../assets/words/main.json');
     currentWordIndex = 0;
 
     currentTester: Tester;
