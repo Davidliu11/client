@@ -38,6 +38,7 @@
                     <mat-card-title *ngIf="!currentTester">
                         SELECT TESTER
                     </mat-card-title>
+                    <countdown style="position: absolute; right: 10px;" *ngIf="testStarted" [config]="countDownConfig" (event)="countDownEvent($event)"></countdown>
                 </mat-card-header>
                 <ng-container *ngIf="currentTester && testStarted">
                     <mat-card-content>

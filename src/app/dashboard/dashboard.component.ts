@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 
 interface Tester {
     name: string;
@@ -105,6 +106,10 @@ export class DashboardComponent implements OnInit {
     testerLastStatus = true;
     testStarted = false;
 
+    countDownConfig: CountdownConfig = {
+        leftTime: 60,
+    };
+
     constructor() {
     }
 
@@ -138,6 +143,7 @@ export class DashboardComponent implements OnInit {
         this.testerLastStatus = true;
         this.currentTester.rightAnswer += 1;
         if (this.currentTester.rightAnswer === 3) {
+            this.testStarted = false;
             this.currentTester.passed = true;
             if (!this.currentTester.passedCount) {
                 this.currentTester.passedCount = 0;
@@ -145,7 +151,7 @@ export class DashboardComponent implements OnInit {
             this.currentTester.passedCount += 1;
             console.log(this.currentTester);
             this.currentTester = undefined;
-            Swal.fire('Congratulation!', 'You passed this test!', 'success');
+            Swal.fire('Congratulations!', 'You passed this test!', 'success');
         }
         this.nextWords();
     }
@@ -153,17 +159,22 @@ export class DashboardComponent implements OnInit {
     wrongAnswer() {
         this.currentTester.wrongAnswer += 1;
         if (this.testerLastStatus === false) {
-            if (!this.currentTester.failedCount) {
-                this.currentTester.failedCount = 0;
-            }
-            this.currentTester.failedCount += 1;
-            this.currentTester = undefined;
-            Swal.fire('Sorry!', 'You failed this test.', 'error');
+            this.terminateTest('You failed this test.');
         } else {
             this.testerLastStatus = false;
         }
 
         this.nextWords();
+    }
+
+    terminateTest(reason: string) {
+        this.testStarted = false;
+        if (!this.currentTester.failedCount) {
+            this.currentTester.failedCount = 0;
+        }
+        this.currentTester.failedCount += 1;
+        this.currentTester = undefined;
+        Swal.fire('Sorry, test failed!', reason, 'error');
     }
 
     nextWords() {
@@ -177,6 +188,12 @@ export class DashboardComponent implements OnInit {
     getClass(member: Tester) {
         return {
             'highlighted-menu-item': member === this.currentTester
+        };
+    }
+
+    countDownEvent(event: CountdownEvent) {
+        if (event.action === 'done') {
+            this.terminateTest('Time up!');
         }
     }
 }

@@ -15,6 +15,7 @@ import {
 } from '@angular/material';
 import { AvatarModule } from 'ngx-avatar';
 import { OrderModule } from 'ngx-order-pipe';
+import { CountdownModule } from 'ngx-countdown';
 
 // Components
 import { AppComponent } from './app.component';
@@ -42,7 +43,8 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
       MatCardModule,
       MatButtonModule,
       MatDividerModule,
-      MatIconModule
+      MatIconModule,
+      CountdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

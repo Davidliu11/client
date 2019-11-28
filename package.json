@@ -27,7 +27,8 @@
     "zone.js": "~0.9.1",
     "sweetalert2": "~9.4.0",
     "ngx-avatar": "~3.7.0",
-    "ngx-order-pipe": "^2.0.4"
+    "ngx-order-pipe": "^2.0.4",
+    "ngx-countdown": "~8.0.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.19",
