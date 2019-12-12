@@ -199,7 +199,7 @@ export class DashboardComponent implements OnInit {
     }
 
     async nextWords() {
-        await this.translate();
+        // await this.translate();
         this.currentWordIndex = this.currentWordIndex + 2 > this.allWords.length ? 0 : this.currentWordIndex + 1;
     }
 
@@ -217,30 +217,30 @@ export class DashboardComponent implements OnInit {
     }
 
 
-    async translate() {
-        const query = this.allWords[this.currentWordIndex];
-        const curTime = Math.round(new Date().getTime());
-        const sign = sha256(this.appKey + this.truncate(query) + this.salt + Math.round(new Date().getTime()) + this.key);
+    // async translate() {
+    //     const query = this.allWords[this.currentWordIndex];
+    //     const curTime = Math.round(new Date().getTime());
+    //     const sign = sha256(this.appKey + this.truncate(query) + this.salt + Math.round(new Date().getTime()) + this.key);
 
-        $.ajax({
-            url: this.youdaoApi,
-            type: 'post',
-            dataType: 'jsonp',
-            data: {
-                q: query,
-                appKey: this.appKey,
-                salt: this.salt,
-                from: this.from,
-                to: this.to,
-                sign,
-                signType: 'v3',
-                curTime
-            },
-            success: (data) => {
-                console.log(data);
-            }
-        });
-    }
+    //     $.ajax({
+    //         url: this.youdaoApi,
+    //         type: 'post',
+    //         dataType: 'jsonp',
+    //         data: {
+    //             q: query,
+    //             appKey: this.appKey,
+    //             salt: this.salt,
+    //             from: this.from,
+    //             to: this.to,
+    //             sign,
+    //             signType: 'v3',
+    //             curTime
+    //         },
+    //         success: (data) => {
+    //             console.log(data);
+    //         }
+    //     });
+    // }
 
     getClass(member: Tester) {
         return {
