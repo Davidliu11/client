@@ -1,8 +1,8 @@
 # 1 Build the prj
-ng build
+ng build --prod
 
 # 2 Make the dist folder a valid github page.
-ngh dist
+ngh dist client
 
 # 3 remove old docs dir
 rmdir docs
