@@ -7,7 +7,7 @@
             <mat-toolbar>
                 <h6>All Members</h6>
             </mat-toolbar>
-            <mat-list>
+            <mat-list class="no-padding">
                 <ng-container *ngFor="let member of onlineMembers | orderBy: 'passedCount' : true">
                     <mat-list-item [ngClass]="getClass(member)"
                         (click)="selectMember(member)">

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 
+declare const sha256: any;
+declare const $: any;
 interface Tester {
     name: string;
     rightAnswer: number;
@@ -110,7 +113,15 @@ export class DashboardComponent implements OnInit {
         leftTime: 60,
     };
 
-    constructor() {
+    youdaoApi = 'http://openapi.youdao.com/api';
+
+    appKey = 'xxxxx';
+    key = 'xxxx';
+    salt = (new Date()).getTime();
+    from = 'en';
+    to = 'zh-CHS';
+
+    constructor(private http: HttpClient) {
     }
 
     ngOnInit() {}
@@ -151,7 +162,12 @@ export class DashboardComponent implements OnInit {
             this.currentTester.passedCount += 1;
             console.log(this.currentTester);
             this.currentTester = undefined;
-            Swal.fire('Congratulations!', 'You passed this test!', 'success');
+            Swal.fire({
+                title: 'Congratulations!',
+                text: 'You passed this test!',
+                html: `<img width=auto height=150 src="../assets/img/bonus.jpg"/>`,
+                icon: 'success'
+            });
         }
         this.nextWords();
     }
@@ -175,14 +191,55 @@ export class DashboardComponent implements OnInit {
         this.currentTester.failedCount += 1;
         this.currentTester = undefined;
         Swal.fire('Sorry, test failed!', reason, 'error');
+        Swal.fire({
+            title: 'Sorry, test failed!',
+            html: `<img width=auto height=150 src="../assets/img/whatsup.jpeg"/>`,
+            icon: 'error'
+        });
     }
 
-    nextWords() {
+    async nextWords() {
+        await this.translate();
         this.currentWordIndex = this.currentWordIndex + 2 > this.allWords.length ? 0 : this.currentWordIndex + 1;
     }
 
     startTest() {
         this.testStarted = true;
+    }
+
+
+    truncate = (q: string) => {
+        const len = q.length;
+        if (len <= 20) {
+            return q;
+        }
+        return q.substring(0, 10) + len + q.substring(len - 10, len);
+    }
+
+
+    async translate() {
+        const query = this.allWords[this.currentWordIndex];
+        const curTime = Math.round(new Date().getTime());
+        const sign = sha256(this.appKey + this.truncate(query) + this.salt + Math.round(new Date().getTime()) + this.key);
+
+        $.ajax({
+            url: this.youdaoApi,
+            type: 'post',
+            dataType: 'jsonp',
+            data: {
+                q: query,
+                appKey: this.appKey,
+                salt: this.salt,
+                from: this.from,
+                to: this.to,
+                sign,
+                signType: 'v3',
+                curTime
+            },
+            success: (data) => {
+                console.log(data);
+            }
+        });
     }
 
     getClass(member: Tester) {
