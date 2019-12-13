@@ -165,7 +165,7 @@ export class DashboardComponent implements OnInit {
             Swal.fire({
                 title: 'Congratulations!',
                 text: 'You passed this test!',
-                html: `<img width=auto height=150 src="../assets/img/bonus.jpg"/>`,
+                html: `<img width=auto height=150 src="../client/assets/img/bonus.jpg"/>`,
                 icon: 'success'
             });
         }
@@ -193,7 +193,7 @@ export class DashboardComponent implements OnInit {
         Swal.fire('Sorry, test failed!', reason, 'error');
         Swal.fire({
             title: 'Sorry, test failed!',
-            html: `<img width=auto height=150 src="../assets/img/whatsup.jpeg"/>`,
+            html: `<img width=auto height=150 src="../client/assets/img/whatsup.jpeg"/>`,
             icon: 'error'
         });
     }
